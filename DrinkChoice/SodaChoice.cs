@@ -1,23 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DrinkChoice
 {
-    public class SodaChoice 
+    public class SodaChoice : INotifyPropertyChanged
     {
 
         public SodaType Soda { get; init; }
 
-        public bool Chosen { get; set; }
+        
+
+        private bool _chosen = false;
+
+        public bool Chosen
+        {
+            get => _chosen;
+            set
+            {
+                _chosen = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Chosen)));
+            }
+        }
 
         public SodaChoice(SodaType type)
         {
             Soda = type;
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public override string ToString()
         {
